@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../lib_args/inc/lib_args.h
+string
+-
+iostream
+-
+vector
+-
+
+C:/C++/WOW/command_line_tool/main.cpp
+sstream
+-
+lib_args.h
+C:/C++/WOW/command_line_tool/lib_args.h
+program.h
+C:/C++/WOW/command_line_tool/program.h
+
+C:/C++/WOW/command_line_tool/program.cpp
+program.h
+C:/C++/WOW/command_line_tool/program.h
+
+C:/C++/WOW/command_line_tool/program.h
+lib_args.h
+C:/C++/WOW/command_line_tool/lib_args.h
+

@@ -1,0 +1,2 @@
+C:\PROGRA~2\MING\mingw64\bin\ar.exe qc liblib_args.a CMakeFiles/lib_args.dir/src/lib_args.cpp.obj
+C:\PROGRA~2\MING\mingw64\bin\ranlib.exe liblib_args.a
