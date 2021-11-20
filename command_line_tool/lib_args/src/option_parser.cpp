@@ -4,40 +4,24 @@
 
 #include <iostream>
 #include "../inc/option_parser.h"
-
-std::vector<std::unique_ptr<argument>> option_parser::parse(char *args[], int nargs) const {
-
+std::vector<std::unique_ptr<argument>> option_parser::parse(char *args[], int nargs) const{
     std::vector<std::unique_ptr<argument>> parsed;
 // calculate the pointer to the end of the sequence
     const auto end = args + nargs;
     do {
-        for (const auto &opt: m_options) {
+        for (const auto& opt: m_options){
 // if an options can be parsed by this `opt`...
-
-            if (opt->can_parse(*args)) {
-                // check if opt is a flag option
-                if (opt->get_number() == 0) {
-                    // this is a flag
-                } else {
-                    // not a flag, parse arguments
-                    ++args;
-                    if (auto value = opt->parse(*args)) {
-// only stores the result if parsing succeeded
-                        parsed.push_back(std::move(value));
-                    }
-                }
-                // we parsed this option, so stop iterating
-                // over the possible options
-                break;
-
-
-
+            if (opt->can_parse(*args)){
+                ++args;
 // ...let it parse the argument
-
+                if (auto value = opt->parse( *args )){
+// only stores the result if parsing succeeded
+                    parsed.push_back(std::move(value));
+                }
 
             }
         }
-    } while (++args != end);
+    } while(++args != end);
     return parsed;
 }
 // help
