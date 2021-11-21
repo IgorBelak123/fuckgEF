@@ -14,15 +14,15 @@ public:
     option(std::string short_flag,
            std::string long_flag,
            std::string desc,
+           bool arg,
            std::unique_ptr<argument_parser> parser);
-    void set_number(int a);
-    int get_number() const;
-    const std::string &long_flag() const;
 
-    const std::string &short_flag() const;
+    [[nodiscard]] const std::string &long_flag() const;
 
-    const std::string &desc() const;
-    int arg();
+    [[nodiscard]] const std::string &short_flag() const;
+     bool arg() const;
+    [[nodiscard]] const std::string &desc() const;
+
     virtual std::string help() const;
 
     virtual bool can_parse(const char *arg) const;
@@ -32,7 +32,7 @@ public:
     virtual ~option() = default;
     std::unique_ptr<argument> parse(const char* argn) const;
     // std::unique_ptr<argument> parse(char* args[], int nargs) const;
-    std::string* the_ones_which_need_argument();
+    [[nodiscard]] std::unique_ptr<argument> pparse() const;
 
 private:
 
@@ -40,10 +40,7 @@ private:
     std::string m_long;
     std::string m_desc;
     std::unique_ptr<argument_parser> m_parser;
-    int number_arguments;
-
-    int count;
-
+    bool argument;
 };
 
 #endif //COMMAND_LINE_TOOL_OPTION_H

@@ -4,7 +4,9 @@
 
 #include "../inc/str_argument.h"
 
-str_argument::str_argument(std::string id, std::string value): argument(id),m_value(value) {
+#include <utility>
+
+str_argument::str_argument(std::string id, std::string value): argument(std::move(id)),m_value(std::move(value)) {
 
 }
 

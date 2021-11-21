@@ -10,6 +10,8 @@
 #include "../command_line_tool/lib_args/inc/option.h"
 #include "memory.h"
 #include "../command_line_tool/lib_args/inc/str_argument_parser.h"
+#include "../command_line_tool/lib_args/inc/not_argument_parser.h"
+#include "../command_line_tool/lib_args/inc/not_argument.h"
 
 
 int main(int argc, char *argv[]){
@@ -18,9 +20,10 @@ int main(int argc, char *argv[]){
     option_parser parser{};
 
 
-    parser.add_option(std::make_unique<int_option>("-l","--level","set the level", std::make_unique<str_argument_parser>()));
-    parser.add_option(std::make_unique<option>("-l","--level","set the level", std::make_unique<dbl_argument_parser>()));
-    parser.add_option(std::make_unique<option>("-l","--level","set the level", std::make_unique<int_argument_parser>()));
+    parser.add_option(std::make_unique<option>("-l","--level","set the level",1, std::make_unique<str_argument_parser>()));
+    parser.add_option(std::make_unique<option>("-l","--level","set the level",1, std::make_unique<dbl_argument_parser>()));
+    parser.add_option(std::make_unique<option>("-l","--level","set the level",1, std::make_unique<int_argument_parser>()));
+    parser.add_option(std::make_unique<option>("-v","--verbose","set the verbose",0, std::make_unique<not_argument_parser>()));
 
     auto arguments = parser.parse(argv, argc);
     //std::cout << "aaaaa";
@@ -39,6 +42,10 @@ int main(int argc, char *argv[]){
         }
         else if (auto* str_arg = dynamic_cast<str_argument*>(raw_arg)){
             std::cout << str_arg->id() << ": " << str_arg->value() << '\n';
+
+        }
+        else if (auto* not_arg = dynamic_cast<not_argument*>(raw_arg)){
+            std::cout << not_arg->id() << '\n';
 
         }
         else{

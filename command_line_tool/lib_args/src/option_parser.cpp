@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "../inc/option_parser.h"
+// TODO: Igor, go through this function slowly. Do not run the program before you read and understand this.
 std::vector<std::unique_ptr<argument>> option_parser::parse(char *args[], int nargs) const{
     std::vector<std::unique_ptr<argument>> parsed;
 // calculate the pointer to the end of the sequence
@@ -12,11 +13,24 @@ std::vector<std::unique_ptr<argument>> option_parser::parse(char *args[], int na
         for (const auto& opt: m_options){
 // if an options can be parsed by this `opt`...
             if (opt->can_parse(*args)){
-                ++args;
-// ...let it parse the argument
-                if (auto value = opt->parse( *args )){
-// only stores the result if parsing succeeded
+
+                // TODO: Igor, check this function. There are some new functions
+                //       and member variables in 'option.h' please check..
+                // Call the 'is_flag' function to check if option is a flag
+                if(opt->arg()){
+                    // Do not move on to the argument. Just parse using a 'bool_argument_parser'
+                    auto value = opt->pparse();
+
+                    // Store into parsed arguments
                     parsed.push_back(std::move(value));
+
+                } else{
+                    ++args;
+                    // ...let it parse the argument
+                    if (auto value = opt->parse( *args )){
+                        // only stores the result if parsing succeeded
+                        parsed.push_back(std::move(value));
+                    }
                 }
 
             }

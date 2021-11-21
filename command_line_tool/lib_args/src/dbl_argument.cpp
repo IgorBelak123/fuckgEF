@@ -5,7 +5,9 @@
 #include "../inc/dbl_argument.h"
 #include "../inc/dbl_argument.h"
 
-dbl_argument::dbl_argument(std::string id, double value): argument(id),m_value(value) {
+#include <utility>
+
+dbl_argument::dbl_argument(std::string id, double value): argument(std::move(id)),m_value(value) {
 
 }
 

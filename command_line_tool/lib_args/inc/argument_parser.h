@@ -14,6 +14,8 @@ class argument_parser {
 public:
 // the id is passed because it's needed to create `argument`
     virtual std::unique_ptr<argument> parse(std::string id, const char* arg) const = 0;
+    [[nodiscard]] virtual std::unique_ptr<argument> parsee(std::string id) const = 0;
+   // virtual std::unique_ptr<argument> parse(std::string id) const = 0;
     virtual ~argument_parser() = default;
 };
 
